@@ -104,7 +104,8 @@ if __name__ == '__main__':
                        compute_intersecting6,
                        compute_intersecting7,
                        compute_intersecting8,
-                       compute_intersecting9]
+                       compute_intersecting9,
+                       ]
 
     Rs = [2.0, 5.0, 10.0, 20.0]
     voxel = xyz_max / 2.0
@@ -119,7 +120,7 @@ if __name__ == '__main__':
             result = implementation(voxel, R, coords, s_index, tracks)
             t = time() - t0
             timings[i, j] = t
-            print j, ')', t, "sec."
+            print j+1, ')', t, "sec."
             intersecting.append(result)
             if j > 0:
                 assert(len(intersecting[-1]) == len(intersecting[-2]))
