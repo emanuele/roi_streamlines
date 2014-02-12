@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
     np.random.seed(0)
     min_length = 1
-    max_length = 200
+    max_length = 150
     size = 300000
     xyz_max = np.array([64.0, 64.0, 34.0])
     # Generating a simple simulated tractography:
@@ -107,13 +107,13 @@ if __name__ == '__main__':
                        compute_intersecting9,
                        ]
 
-    Rs = [2.0, 5.0, 10.0, 20.0]
+    Rs = [2.0, 5.0, 10.0, 15.0, 20.0]
     voxel = xyz_max / 2.0
     from time import time
 
     timings = np.zeros((len(Rs), len(implementations)))
     for i, R in enumerate(Rs):
-        print "ROI center =", voxel, ",  R =", R
+        print "R =", R
         intersecting = []
         for j, implementation in enumerate(implementations):
             t0 = time()
@@ -126,8 +126,9 @@ if __name__ == '__main__':
                 assert(len(intersecting[-1]) == len(intersecting[-2]))
                 assert((intersecting[-1] == intersecting[-2]).all())
 
+        print "Ranking (fastest first):", np.argsort(timings[i,:]) + 1
         print
-
+        
     import matplotlib.pyplot as plt
     plt.figure()
     for i in range(len(implementations)):
