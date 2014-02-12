@@ -7,7 +7,7 @@ def my_inside_sphere(xyz,center,radius):
     return (np.sum((tmp * tmp), axis=1) <= (radius * radius)).any()==True
 
 
-def compute_intersecting(voxel, R, coords, s_index, tracks):
+def compute_intersecting1(voxel, R, coords, s_index, tracks):
     x_idx = np.where((coords[:,0] >= (voxel[0] - R)) & (coords[:,0] <= (voxel[0] + R)))[0]
     y_idx = x_idx[np.where((coords[:,1][x_idx] >=  (voxel[1] - R)) & (coords[:,1][x_idx] <= (voxel[1] + R)))[0]]
     z_idx = y_idx[np.where((coords[:,2][y_idx] >=  (voxel[2] - R)) & (coords[:,2][y_idx] <= (voxel[2] + R)))[0]]
@@ -96,7 +96,7 @@ if __name__ == '__main__':
 
     coords = np.vstack(tracks)
 
-    implementations = [compute_intersecting,
+    implementations = [compute_intersecting1,
                        compute_intersecting2,
                        compute_intersecting3,
                        compute_intersecting4,
@@ -132,7 +132,7 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
     plt.figure()
     for i in range(len(implementations)):
-        plt.plot(Rs, timings[:,i], '-o', label=str(i))
+        plt.plot(Rs, timings[:,i], '-o', label=str(i+1))
 
     plt.xlabel('R')
     plt.ylabel('sec.')
